@@ -12,9 +12,9 @@ if (typeof window !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
 const MODEL_NAME = 'gemini-1.5-flash-latest';
 
 function getGenerativeModel() {
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
   if (!apiKey) {
-    throw new Error('Missing Google Gemini API key. Please set REACT_APP_GEMINI_API_KEY in your environment.');
+    throw new Error('Missing Google Gemini API key. Please set REACT_APP_GOOGLE_API_KEY in your environment.');
   }
 
   const client = new GoogleGenerativeAI(apiKey);
