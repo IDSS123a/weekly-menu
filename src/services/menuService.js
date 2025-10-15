@@ -1,24 +1,10 @@
 import mammoth from 'mammoth';
 import * as pdfjsLib from 'pdfjs-dist';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const PDF_WORKER_SRC = 'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
-const MAX_PROMPT_CHARS = 15000;
 
 if (typeof window !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
-}
-
-const MODEL_NAME = 'gemini-1.5-flash';
-
-function getGenerativeModel() {
-  const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-  if (!apiKey) {
-    throw new Error('Missing Google Gemini API key. Please set REACT_APP_GOOGLE_API_KEY in your environment.');
-  }
-
-  const client = new GoogleGenerativeAI(apiKey);
-  return client.getGenerativeModel({ model: MODEL_NAME });
 }
 
 async function extractTextFromDocx(file) {
@@ -57,30 +43,6 @@ function selectExtractor(file) {
   throw new Error('Unsupported file type. Please upload a DOCX or PDF file.');
 }
 
-function buildPrompt(rawText, institution) {
-  const truncatedText = rawText.length > MAX_PROMPT_CHARS ? `${rawText.slice(0, MAX_PROMPT_CHARS)}...` : rawText;
-
-  return `You are an assistant that reads weekly menu documents and normalises them to JSON.\nInstitution: ${institution.toUpperCase()}\n---\nDocument:\n${truncatedText}\n---\nReturn valid JSON in the following shape:\n{\n  "institution": "imh" | "idss",\n  "weekOf": "YYYY-MM-DD" | null,\n  "days": [\n    {\n      "day": "Monday",\n      "meals": [\n        { "name": "", "time": "", "description": "" }\n      ]\n    }\n  ],\n  "notes": []\n}\nDo not include any commentary or code fences. Ensure keys are always present even if arrays are empty.`;
-}
-
-function sanitiseToJson(rawResponse) {
-  if (!rawResponse) {
-    throw new Error('Empty response from Gemini API.');
-  }
-
-  const trimmed = rawResponse.trim();
-  const jsonMatch = trimmed.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('Unable to locate JSON in Gemini response.');
-  }
-
-  try {
-    return JSON.parse(jsonMatch[0]);
-  } catch (error) {
-    throw new Error(`Failed to parse JSON response: ${error.message}`);
-  }
-}
-
 export async function processMenuFile(file, institution) {
   const extractor = selectExtractor(file);
   const rawText = await extractor(file);
@@ -88,20 +50,36 @@ export async function processMenuFile(file, institution) {
     throw new Error('The uploaded file did not contain readable text.');
   }
 
-  const prompt = buildPrompt(rawText, institution);
-  const model = getGenerativeModel();
-  let result;
+  let response;
   try {
-    result = await model.generateContent(prompt);
+    response = await fetch('/api/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: rawText, institution }),
+    });
   } catch (error) {
-    throw new Error(`Gemini API request failed: ${error.message}`);
+    throw new Error('Unable to reach AI service. Please check your connection and try again.');
   }
 
-  const responseText = result?.response?.text();
-  const structuredMenu = sanitiseToJson(responseText);
+  let payload;
+  try {
+    payload = await response.json();
+  } catch (error) {
+    throw new Error('Received an invalid response from the AI service.');
+  }
+
+  if (!response.ok) {
+    throw new Error(payload?.error || 'AI service returned an error.');
+  }
+
+  if (!payload?.menu) {
+    throw new Error('AI service did not return any menu data.');
+  }
 
   return {
-    ...structuredMenu,
+    ...payload.menu,
     institution,
     sourceFileName: file.name,
     generatedAt: new Date().toISOString(),
