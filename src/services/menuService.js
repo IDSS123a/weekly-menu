@@ -9,7 +9,7 @@ if (typeof window !== 'undefined' && pdfjsLib.GlobalWorkerOptions) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = PDF_WORKER_SRC;
 }
 
-const MODEL_NAME = 'gemini-1.5-flash-latest';
+const MODEL_NAME = 'gemini-1.5-flash';
 
 function getGenerativeModel() {
   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
