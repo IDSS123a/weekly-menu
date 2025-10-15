@@ -1,0 +1,25 @@
+@media print {
+	@page {
+		size: A4 landscape;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	.menu-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.menu-container {
+	width: 100%;
+	max-width: 1189px;
+	margin: 0 auto;
+	padding: 20px;
+	box-sizing: border-box;
+}
