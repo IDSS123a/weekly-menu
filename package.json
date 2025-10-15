@@ -1,0 +1,23 @@
+{
+  "name": "weekly-menu",
+  "version": "1.0.0",
+  "description": "Weekly Menu for IMH/IDSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "jspdf": "^3.0.3",
+    "mammoth": "^1.11.0",
+    "pdfjs-dist": "^5.4.296",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.4"
+  }
+}
