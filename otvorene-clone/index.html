@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="bs-Latn-BA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Otvorene Inovacije — Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="bg-white text-gray-800 font-sans" style="font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+
+    <header class="bg-black text-white">
+      <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <img src="https://via.placeholder.com/120x40?text=LOGO" alt="OIP logo" class="h-10 w-auto">
+        </div>
+        <nav>
+          <ul class="flex items-center gap-6 text-sm font-medium">
+            <li><a href="#" class="hover:underline">OIP je...</a></li>
+            <li><a href="#" class="hover:underline">Priključi se</a></li>
+            <li><a href="#" class="hover:underline">Inoviraj</a></li>
+            <li><a href="#" class="hover:underline">Partneri</a></li>
+            <li><a href="#" class="hover:underline">Kontakt</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-screen-xl mx-auto px-6 py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Filters (left column) -->
+        <aside id="filters" class="lg:col-span-1">
+          <div class="bg-white rounded-lg shadow-md p-4">
+            <h3 class="text-sm font-semibold mb-3">Pretraga</h3>
+            <div class="space-y-3">
+              <input type="text" placeholder="Vrsta sadržaja" class="w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300" />
+              <input type="text" placeholder="Članovi" class="w-full border border-gray-200 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-300" />
+            </div>
+          </div>
+        </aside>
+
+        <!-- News Card (main area) -->
+        <section class="lg:col-span-3">
+          <article class="bg-white rounded-lg shadow-md p-6 flex flex-col lg:flex-row gap-6 items-start">
+            <div class="flex-1 pr-2">
+              <h2 class="text-xl font-bold text-black mb-3">Inoviraj za rast: poticanje održivog razvoja kroz inovacije</h2>
+              <p class="text-base text-gray-700 leading-relaxed mb-4">Projekti i inicijative koje spajaju javni i privatni sektor, podržane kroz grantove i mentorstvo, usmjerene su na lokalni razvoj i zapošljavanje mladih. Saznajte kako sudjelovati u nadolazećim radionicama i prijaviti svoj projekt.</p>
+
+              <div class="flex items-center gap-4 text-sm text-gray-600">
+                <div class="flex items-center gap-2"><span>👁️</span><span>1.2k</span></div>
+                <div class="flex items-center gap-2"><span>👍</span><span>230</span></div>
+                <div class="ml-auto">
+                  <a href="#" class="inline-block bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2 rounded-full transition">Detaljnije →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="w-full lg:w-1/3 flex-shrink-0">
+              <img src="https://via.placeholder.com/360x220?text=Preview+Image" alt="conference" class="rounded-md w-full object-cover h-44">
+            </div>
+          </article>
+
+          <!-- Gap to contact -->
+          <div class="mt-10"></div>
+
+          <!-- Contact Section -->
+          <section class="bg-white rounded-lg p-8 flex items-center justify-center border-2 border-black">
+            <button class="bg-white border-2 border-black rounded-lg px-8 py-3 font-medium uppercase hover:bg-gray-50 transition">Kontaktirajte nas</button>
+          </section>
+
+        </section>
+      </div>
+    </main>
+
+    <footer class="bg-white border-t mt-12">
+      <div class="max-w-screen-xl mx-auto px-6 py-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <p class="text-sm text-gray-600">Program podrške inovacijama — UNDP Bosna i Hercegovina. Cilj je poboljšati socio-ekonomske prilike kroz lokalne projekte i partnerstva.</p>
+          <p class="text-sm text-gray-600 mt-4">Privacy & Terms | Razvoj - App Impact</p>
+        </div>
+        <div class="flex items-end justify-end">
+          <img src="https://via.placeholder.com/280x80?text=Doodles" alt="doodles" class="w-72 h-auto object-contain">
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
