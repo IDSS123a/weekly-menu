@@ -50,7 +50,7 @@ app.post('/api/generate', async (req, res) => {
 
   const prompt = buildPrompt(text, institution);
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateMessage?key=${encodeURIComponent(GEMINI_API_KEY)}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
   const payload = {
     contents: [
       {
